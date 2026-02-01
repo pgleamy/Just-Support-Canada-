@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just Support (Canada)</title>
+    <style>
+        :root {
+            --primary: #2c3e50; /* Navy Blue */
+            --accent: #2980b9;  /* Brighter Blue for links/highlights */
+            --cta: #27ae60;     /* Green for Purchase */
+            --bg: #f8f9fa;      /* Light Gray Background */
+            --text: #333333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            margin: 0;
+            background-color: var(--bg);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid #e1e4e8;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-purchase {
+            background-color: var(--cta);
+            color: var(--white);
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background-color 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-purchase:hover {
+            background-color: #219150;
+        }
+
+        /* Main Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 0.8fr; /* Text wider than images */
+            gap: 60px;
+            padding: 60px 0;
+        }
+
+        /* Text Content Styling */
+        .content-column h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-top: 0;
+            line-height: 1.2;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .feature-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-block h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            border-bottom: 2px solid #e1e4e8;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .feature-block ul {
+            padding-left: 20px;
+        }
+
+        .feature-block li {
+            margin-bottom: 10px;
+        }
+
+        .highlight-box {
+            background-color: #e8f4f8;
+            border-left: 5px solid var(--accent);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+
+        /* Sidebar / Screenshot Styling */
+        .sidebar-column {
+            position: relative;
+        }
+
+        .sticky-wrapper {
+            position: sticky;
+            top: 100px; /* Offset for header */
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .screenshot-img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: #bdc3c7;
+            padding: 40px 0;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 20px;
+            cursor: pointer; /* Added for modal link */
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Modal Styles --- */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.5); 
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 40px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 700px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .close-modal {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .modal-header h2 {
+            margin-top: 0;
+            color: var(--primary);
+            border-bottom: 2px solid #e1e4e8;
+            padding-bottom: 15px;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr; /* Stack columns */
+                gap: 40px;
+            }
+            
+            .sidebar-column {
+                order: -1; /* Move images to top on mobile */
+            }
+
+            .sticky-wrapper {
+                position: static;
+                display: grid;
+                grid-template-columns: 1fr 1fr; /* 2x2 grid for images on tablet */
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sticky-wrapper {
+                grid-template-columns: 1fr; /* 1 column images on phone */
+            }
+            .content-column h1 {
+                font-size: 2rem;
+            }
+            .modal-content {
+                width: 90%;
+                margin: 20% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="logo">
+                Just Support (Canada)
+            </a>
+            <a href="#" class="btn-purchase">Purchase Now</a>
+        </div>
+    </header>
+
+    <main class="container main-grid">
+        
+        <div class="content-column">
+            <h1>Reasonably Priced Support Calculations</h1>
+            <p class="lead">
+                Just Support is designed for family law professionals, mediators and unprepresented litigants to perform essential support calculations in accordance with the Federal Child Support Guidelines and the Spousal Support Advisory Guidelines.
+            </p>
+
+            <div class="highlight-box">
+                <strong>Local & Private:</strong> The application runs entirely on your local machine to ensure strict client data privacy. 
+                <br><br>
+                <strong>One-Time Purchase:</strong> Unlike most legal software that burdens users with recurring monthly fees, Just Support is available for a one-time purchase price.
+            </div>
+
+            <div class="feature-block">
+                <h3>1. Spousal Support (SSAG) Engine</h3>
+                <ul>
+                    <li>Calculates spousal support quantum (Low, Mid, High) and duration pursuant to the <em>Spousal Support Advisory Guidelines</em>.</li>
+                    <li>Automatically applies the correct formula ("With Child Support" or "Without Child Support") based on family composition and ages.</li>
+                    <li>Calculates <em>Individual Net Disposable Income (INDI)</em> to determine support ranges based on net disposable income equalization.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>2. Child Support Calculation (Section 3 & 7)</h3>
+                <ul>
+                    <li>Calculates the base child support (Table Amount) using current and historical <em>Federal Child Support Guidelines</em> tables.</li>
+                    <li>Handles primary, shared, and split residency arrangements, automatically performing the necessary set-off calculations.</li>
+                    <li>Calculates the proportionate sharing ratios for Section 7 Special Expenses based on the parties' respective incomes.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>3. Dynamic Child Support Arrears Calculator</h3>
+                <ul>
+                    <li>Automates the calculation of retroactive child support obligations.</li>
+                    <li><strong>Incorporates changes of circumstances at any point within a tax year</strong>, allowing for precise adjustments to party incomes, child residency, or province of residence on specific dates.</li>
+                    <li>Nets gross obligations against historical payments to determine the outstanding arrears balance in a detailed audit trail.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>4. Lump Sum Spousal Support</h3>
+                <ul>
+                    <li>Calculates the Net Present Value (NPV) for lump-sum spousal support settlements.</li>
+                    <li>Adjusts for tax consequences to determine the appropriate lump-sum equivalent of periodic payments.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>5. Income Adjustments & Reporting</h3>
+                <ul>
+                    <li>Supports Schedule III adjustments (e.g., Union dues, employment expenses) and automatically grosses up non-taxable income.</li>
+                    <li>Generates detailed Audit Reports displaying the breakdown of income, taxes, and government benefits used in the calculations.</li>
+                </ul>
+            </div>
+
+            <div class="feature-block">
+                <h3>6. Case Management & Data Persistence</h3>
+                <ul>
+                    <li><strong>Saves complete scenario data to local files</strong>, allowing users to store, retrieve, and amend complex case histories at any time.</li>
+                    <li>Enables the creation of multiple scenarios (e.g., "Scenario A" vs. "Scenario B") for comparison without re-entering data.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 40px; text-align: center;">
+                <a href="#" class="btn-purchase" style="padding: 15px 40px; font-size: 1.2rem;">Purchase Now</a>
+            </div>
+        </div>
+
+        <div class="sidebar-column">
+            <div class="sticky-wrapper">
+                
+                <div>
+                    <img src="a.png" alt="Main Interface" class="screenshot-img">
+                </div>
+                
+                <div>
+                    <img src="b.png" alt="SSAG Results" class="screenshot-img">
+                </div>
+
+                <div>
+                    <img src="c.png" alt="Arrears Calculator" class="screenshot-img">
+                </div>
+
+                <div>
+                    <img src="d.png" alt="Audit Report" class="screenshot-img">
+                </div>
+
+                <div>
+                    <img src="e.png" alt="Advanced Features" class="screenshot-img">
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div>
+                &copy; 2026 Just Support (Canada). All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#" id="privacyLink">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Privacy Policy</h2>
+            </div>
+            <div style="color: #555; line-height: 1.8;">
+                <p><strong>Effective Date:</strong> February 1, 2026</p>
+                <p>At Just Support (Canada), we believe that your legal and financial data belongs to you—and only you. Our application is designed with a "Local-First" architecture to ensure maximum privacy.</p>
+                
+                <h3>1. Local Data Storage</h3>
+                <p>All personal information, financial data, and case details entered into the Just Support application are stored exclusively on your local computer's hard drive. We do not maintain a central database of user case data, or otherwise collect any information from the application.</p>
+
+                <h3>2. No External Data Collection</h3>
+                <p>Just Support (Canada) does not collect, transmit, or access any of the data you enter into the application. Your case files are not uploaded to the cloud, nor are they shared with any third-party servers.</p>
+
+                <h3>3. Data Ownership & Security</h3>
+                <p>Because data is stored locally, you retain full ownership and control over your files. You are responsible for the security of your own device and for creating backups of your saved scenario files.</p>
+
+                <h3>4. Transparency</h3>
+                <p>Just Support (Canada) operates entirely offline. No data is collected by or shared with Just Support (Canada).</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById("privacyModal");
+        const link = document.getElementById("privacyLink");
+        const closeBtn = document.getElementsByClassName("close-modal")[0];
+
+        // Open Modal
+        link.onclick = function(e) {
+            e.preventDefault();
+            modal.style.display = "block";
+        }
+
+        // Close on X
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Close on click outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
